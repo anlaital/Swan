@@ -12,11 +12,15 @@ import UIKit
 public extension UIView {
     
     final func snapshotAfterScreenUpdates(_ afterScreenUpdates: Bool) -> UIImage {
+        guard !bounds.isEmpty else {
+            return UIImage()
+        }
+        
         UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0)
         drawHierarchy(in: bounds, afterScreenUpdates: afterScreenUpdates)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image!
+        return image ?? UIImage()
     }
     
 }
